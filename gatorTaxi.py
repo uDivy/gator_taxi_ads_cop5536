@@ -34,7 +34,7 @@ class RideService:
 
     def insert_ride(self, rideNumber, rideCost, tripDuration):
         if self.rbt.get(rideNumber):
-            print("Error: Ride number already exists", file=open("output_file.txt", "a"))
+            print("Dulplicate RideNumber", file=open("output_file.txt", "a"))
             return
 
         ride = Ride(rideNumber, rideCost, tripDuration)
@@ -49,7 +49,7 @@ class RideService:
             print("No active ride requests", file=open("output_file.txt", "a"))
             return
         else:
-            node = self.heap.pop()
+            node = self.heap.extract_min()
             ride = self.pointers[node]
             del self.pointers[node]
             self.rbt.delete(ride.rideNumber)
@@ -58,7 +58,7 @@ class RideService:
     def cancel_ride(self, rideNumber):
         ride = self.rbt.get(rideNumber)
         if ride:
-            node = self.rbt.get_node(rideNumber)
+            node = self.rbt.get(rideNumber)
             self.heap.delete(node)
             del self.pointers[node]
             self.rbt.delete(rideNumber)
@@ -92,7 +92,7 @@ if __name__ == "__main__":
             ride_service.insert_ride(rideNumber, rideCost, tripDuration)
         elif action == "Print":
             if len(action_params) == 1:
-                rideNumber = action_params
+                rideNumber = action_params[0]
                 ride_service.print_triplet(rideNumber)
             elif len(action_params) == 2:
                 rideNumber1, rideNumber2 = action_params
