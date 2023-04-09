@@ -1,5 +1,6 @@
 from redBlackTree import RedBlackTree
 from minHeap import MinHeap
+import sys
 
 class Ride:
     def __init__(self, rideNumber, rideCost, tripDuration):
@@ -35,7 +36,7 @@ class RideService:
     def insert_ride(self, rideNumber, rideCost, tripDuration):
         if self.rbt.get(rideNumber):
             print("Dulplicate RideNumber", file=open("output_file.txt", "a"))
-            return
+            sys.exit()
 
         ride = Ride(rideNumber, rideCost, tripDuration)
         self.rbt.put(rideNumber, ride)
@@ -84,7 +85,7 @@ if __name__ == "__main__":
         command = input()
         action, params = command.split('(', 1)
         params = params.strip(')')
-        if len(params) > 0:
+        if len(params) > 0 and params != " ":
             action_params = [int(x) for x in params.split(',')]
 
         if action == "Insert":
