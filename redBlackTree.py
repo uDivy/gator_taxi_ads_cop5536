@@ -135,3 +135,24 @@ class RedBlackTree:
         while node.left:
             node = node.left
         return node
+    
+    def inorder_traversal(self, start_key, end_key):
+        """
+        Returns a list of nodes in the tree, in order, from start_key to end_key (inclusive).
+        """
+        nodes = []
+        self._inorder_traversal(self.root, start_key, end_key, nodes)
+        return nodes
+
+    def _inorder_traversal(self, node, start_key, end_key, nodes):
+        if not node:
+            return
+
+        if start_key < node.key:
+            self._inorder_traversal(node.left, start_key, end_key, nodes)
+
+        if start_key <= node.key and end_key >= node.key:
+            nodes.append(node)
+
+        if end_key > node.key:
+            self._inorder_traversal(node.right, start_key, end_key, nodes)

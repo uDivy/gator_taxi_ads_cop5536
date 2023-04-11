@@ -37,9 +37,10 @@ class RideService:
         "(rideNumber, rideCost, tripDuration)" separated by a comma and a space
         or (0, 0, 0) if ride doesn't exist !!!.
         """ 
-        ride_numbers = [num for num in range(rideNumber1, rideNumber2 + 1) if self.rbt.get(num)]
+        # ride_numbers = [num for num in range(rideNumber1, rideNumber2 + 1) if self.rbt.get(num)]
+        ride_numbers = self.rbt.inorder_traversal(rideNumber1, rideNumber2)
         if ride_numbers:
-            output_str = ", ".join([f"({num}, {self.rbt.get(num).rideCost}, {self.rbt.get(num).tripDuration})" for num in ride_numbers])
+            output_str = ", ".join([f"({num.value.rideNumber}, {num.value.rideCost}, {num.value.tripDuration})" for num in ride_numbers])
             print(output_str, file=open("output_file.txt", "a"))
         else:
             print("(0, 0, 0)", file=open("output_file.txt", "a"))
