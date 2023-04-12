@@ -147,7 +147,6 @@ class RedBlackTree:
     def _inorder_traversal(self, node, start_key, end_key, nodes):
         if not node:
             return
-
         if start_key < node.key:
             self._inorder_traversal(node.left, start_key, end_key, nodes)
 
